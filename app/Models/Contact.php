@@ -9,7 +9,7 @@ class Contact extends Model
 {
     use HasFactory;
     protected $table = 'contacts';
-    protected $fillable = ['name','email','phone','address','job','note','city_state'];
+    protected $fillable = ['user_id','name','email','phone','address','job','note','city_state'];
     public function user()
     {
         return $this->belongsTo(User::class);

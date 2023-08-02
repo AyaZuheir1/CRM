@@ -13,7 +13,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::all()->where('id',Auth::id());
+        $contacts = Contact::all()->where('user_id',Auth::id());
         return view('contacts.index', ['contacts' => $contacts]);
     }
 
@@ -31,6 +31,7 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
+           
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:contacts,email',
             'phone' => 'nullable|string',
@@ -40,7 +41,10 @@ class ContactController extends Controller
             'city_state' =>'nullable|string',
             
         ]);
-    
+        
+        $user_id = Auth::id();
+
+        $data['user_id'] = $user_id;
         $contact = Contact::create($data);
     
         return redirect()->route('contacts.index')->with('success', 'Contact created successfully!');
@@ -69,6 +73,7 @@ class ContactController extends Controller
     public function update(Request $request, Contact $contact)
 {
     $data = $request->validate([
+        
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:contacts,email,' . $contact->id,
         'phone' => 'nullable|string',
@@ -77,7 +82,7 @@ class ContactController extends Controller
         'note'=>'nullable|string',
         'city_state' =>'nullable|string',
     ]);
-
+   
     $contact->update($data);
 
     return redirect()->route('contacts.index')->with('success', 'Update completed successfully!');
