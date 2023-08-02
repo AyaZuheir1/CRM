@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>تعديل جهة اتصال</title>
-    <!-- تضمين ملفات Bootstrap CSS -->
+    <title>edit Contact</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h1>تعديل جهة اتصال</h1>
+        <h1> edit Contact </h1>
 
         <form action="{{ route('contacts.update', $contact) }}" method="post">
             @csrf

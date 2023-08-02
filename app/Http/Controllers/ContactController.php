@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Contact;
 class ContactController extends Controller
 {
@@ -11,7 +13,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::all();
+        $contacts = Contact::all()->where('id',Auth::id());
         return view('contacts.index', ['contacts' => $contacts]);
     }
 

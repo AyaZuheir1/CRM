@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contacts', function (Blueprint $table) {
+
             $table->id();
+            $table->unsignedBigInteger('user_id'); // هنا نقوم بإضافة العمود user_id
+
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone');
@@ -21,7 +24,7 @@ return new class extends Migration
             $table->text('note');  
             $table->string('city_state');      
             $table->timestamps();
-            $table->foreign('user_id')->cascadeonDelete();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }
